@@ -1,5 +1,6 @@
 # custom-color-palettes
-This repository serves as a documentation of the color palettes I customly made along various datavisualisation projects.
+This repository serves as a documentation of the color palettes I customly made along various datavisualisation projects. <br/>
+The plots I show are not meant to be meaningful data-wise but just should showcase the palette a bit.
 
 **1. eco_river**<br/>
 Running the following hex codes:
@@ -50,3 +51,37 @@ ggplot(penguins, aes(x = island, y = species, color = flipper_length_mm)) +
 ````
 
 ![eco_river_jitter](https://user-images.githubusercontent.com/65813696/90797193-9bbc1d00-e310-11ea-9890-ffa84bb7fd00.png)
+</br>
+
+
+**2. sugar_cake** <br/>
+Following hexcodes produces this palette:</br>
+````
+sugar_cake_pal <- c("#af7ac5", "#2e86c1", "#16a085", "#f1c40f", "#ba4a00","#212f3d")
+
+show_col(sugar_cake_pal, borders = NA)
+````
+![sugar_cake](https://user-images.githubusercontent.com/65813696/90883420-0e2f0a80-e3ae-11ea-9b49-54402723ebcf.png) <br/>
+
+Some plot code:
+````
+library(nycflights13)
+library(dplyr)
+library(ggforce)
+
+#filter for smaller dataset: some airlines in january 2013
+flights_dat=flights %>%
+  filter(carrier %in% c("UA", "AA", "B6", "EV", "US", "HA") & month  == 1 & day == 1)
+
+#plot 
+ggplot(flights_dat, aes(x=origin, fill = carrier, color = carrier))+
+  geom_histogram(stat = "count", position = "dodge") +
+  scale_fill_discrete(type = sugar_cake_pal) +
+  scale_color_discrete(type = sugar_cake_pal) +
+  ggtitle("sugar_cake on bars")+
+  theme_tinyhand() +
+  ggsave("sugar_cake_scatter.png", dpi = 200, width = 10, height = 10, units = "cm")
+````
+
+Example on a discrete variable plot: <br/>
+![sugar_cake_scatter](https://user-images.githubusercontent.com/65813696/90883644-885f8f00-e3ae-11ea-9088-b821d539c765.png)
